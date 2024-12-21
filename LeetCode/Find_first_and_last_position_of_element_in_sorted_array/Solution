@@ -1,0 +1,62 @@
+public class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int[] result = {-1, -1};
+        
+        if (nums == null || nums.length == 0) {
+            return result;
+        }
+        
+        result[0] = findLeft(nums, target);
+        result[1] = findRight(nums, target);
+        
+        return result;
+    }
+    
+    private int findLeft(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        int leftmost = -1;
+        
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            
+            if (nums[mid] == target) {
+                leftmost = mid;
+                right = mid - 1;
+                continue;
+            }
+
+            if (nums[mid] < target) {
+                left = mid + 1;
+                continue;
+            }
+
+            right = mid - 1;
+        }
+        
+        return leftmost;
+    }
+    
+    private int findRight(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        int rightmost = -1;
+        
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            
+            if (nums[mid] == target) {
+                rightmost = mid;
+                left = mid + 1;
+                continue;
+            }
+            if (nums[mid] < target) {
+                left = mid + 1;
+                continue;
+            }
+            right = mid - 1;
+        }
+        
+        return rightmost;
+    }
+}
