@@ -1,0 +1,34 @@
+import java.util.*;
+
+class Solution {
+    
+    private static final int[] DISTANCES = new int[]{2, 3, 4};
+    public long solution(int[] weights) {
+        long answer = 0;
+        Map<Integer, Integer> weightCount = new HashMap<>();
+        for(int weight : weights) {
+            weightCount.put(weight, weightCount.getOrDefault(weight, 0) + 1);
+        }
+        
+        for(var entry : weightCount.entrySet()) {
+            var weight = entry.getKey();
+            var count = entry.getValue();
+            
+            if(count > 1) {
+                answer += (long) count * (count - 1) / 2;
+            }
+            for (int d1 : DISTANCES) {
+                for (int d2 : DISTANCES) {
+                    if (d1 >= d2) continue;
+                    if (weight * d1 % d2 == 0) {
+                        int otherWeight = weight * d1 / d2;
+                        if (weightCount.containsKey(otherWeight)) {
+                            answer += (long) count * weightCount.get(otherWeight);
+                        }
+                    }
+                }
+            }
+        }
+        return answer;
+    }
+}
