@@ -1,6 +1,5 @@
-```java
 import java.util.*;
-class Solution {
+class Solution2 {
     public int solution(int[][] points, int[][] routes) {
         int answer = 0;
         
@@ -51,4 +50,3 @@ class Solution {
         return cnt;
     }
 }
-```
